@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" lang="es">
+<h:head>
+  <title>UTP · Registro de usuarios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <h:outputStylesheet library="css" name="bootstrap.min.css" />
+  <h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+<h:body>
+  <header class="topbar"><div class="container d-flex align-items-center gap-3"><span class="brand">UTP</span><span>Desarrollo Web Integrado</span><span class="ms-auto small">Semana 10 · Sesión 19</span></div></header>
+  <main class="container py-5">
+    <div class="row g-5 align-items-start">
+      <section class="col-lg-5 intro">
+        <span class="eyebrow">JAVA MVC FRAMEWORKS</span>
+        <h1 class="mt-3">Gestión de<br /><span class="accent">usuarios.</span></h1>
+        <p class="lead mt-4">Un formulario, tres capas y el ciclo de vida de JavaServer Faces en acción.</p>
+        <div class="architecture mt-4"><div><b>01 · Modelo</b><span>Usuario.java · Datos encapsulados</span></div><div><b>02 · Vista</b><span>Facelets · Componentes y validación</span></div><div><b>03 · Controlador</b><span>UsuarioBean · CDI y @ViewScoped</span></div></div>
+        <p class="small text-secondary mt-4">Práctica académica: los datos se procesan en memoria y se muestran en la consola del servidor.</p>
+      </section>
+      <section class="col-lg-7"><div class="card border-0 shadow-sm registration"><div class="card-body p-4 p-md-5">
+        <span class="eyebrow">NUEVO REGISTRO</span><h2 class="mt-2">Registrar usuario</h2><p class="text-secondary mb-4">Completa los tres campos para continuar.</p>
+        <h:form id="frmUsuario">
+          <div class="mb-4"><h:outputLabel for="txtNombre" value="Nombre completo" styleClass="form-label fw-semibold" />
+            <h:inputText id="txtNombre" value="#{usuarioBean.usuario.nombre}" styleClass="form-control form-control-lg" required="true" requiredMessage="El nombre es obligatorio." validatorMessage="Ingresa un nombre válido (no solo espacios)."><f:validateRegex pattern=".*\S.*" /></h:inputText>
+            <h:message for="txtNombre" styleClass="text-danger small d-block mt-1" /></div>
+          <div class="mb-4"><h:outputLabel for="txtCorreo" value="Correo electrónico" styleClass="form-label fw-semibold" />
+            <h:inputText id="txtCorreo" value="#{usuarioBean.usuario.correo}" styleClass="form-control form-control-lg" required="true" requiredMessage="El correo es obligatorio." validatorMessage="Ingresa un correo válido, por ejemplo: nombre@dominio.com."><f:validateRegex pattern="[^\s@]+@[^\s@]+\.[^\s@]+" /></h:inputText>
+            <h:message for="txtCorreo" styleClass="text-danger small d-block mt-1" /></div>
+          <div class="mb-4"><h:outputLabel for="cboRol" value="Rol asignado" styleClass="form-label fw-semibold" />
+            <h:selectOneMenu id="cboRol" value="#{usuarioBean.usuario.rol}" styleClass="form-select form-select-lg" required="true" requiredMessage="Debe seleccionar un rol.">
+              <f:selectItem itemLabel="-- Seleccione Rol --" itemValue="" noSelectionOption="true" />
+              <f:selectItem itemLabel="Administrador" itemValue="ADMIN" /><f:selectItem itemLabel="Operador" itemValue="OPERADOR" /><f:selectItem itemLabel="Auditor" itemValue="AUDITOR" />
+            </h:selectOneMenu><h:message for="cboRol" styleClass="text-danger small d-block mt-1" /></div>
+          <h:commandButton id="btnRegistrar" value="Registrar Usuario" action="#{usuarioBean.procesar}" styleClass="btn btn-primary btn-lg w-100" />
+          <p class="small text-secondary text-center mt-3 mb-0">Validación en servidor · Jakarta Faces</p>
+        </h:form>
+      </div></div></section>
+    </div>
+    <footer class="mt-5 pt-4 border-top text-secondary small">Arquitectura MVC · Contexts and Dependency Injection · Navegación PRG</footer>
+  </main>
+</h:body></html>
